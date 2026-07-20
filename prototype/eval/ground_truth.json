@@ -1,0 +1,9 @@
+[
+  {"name": "openssh", "version": "9.6p1", "cve": "CVE-2024-6387", "cwe": "CWE-364", "fixed_version": "9.8p1", "affected": true},
+  {"name": "glibc",   "version": "2.39",  "cve": "CVE-2024-2961", "cwe": "CWE-787", "fixed_version": "2.40",  "affected": true},
+  {"name": "curl",    "version": "8.7.1", "cve": "CVE-2024-7264", "cwe": "CWE-125", "fixed_version": "8.9.1", "affected": true},
+  {"name": "zlib",    "version": "1.3.1", "cve": "CVE-2022-37434", "cwe": "CWE-787", "fixed_version": "1.2.13", "affected": false},
+  {"name": "curl",    "version": "8.7.1", "cve": "CVE-2024-2004", "cwe": "CWE-436", "fixed_version": "8.7.0", "affected": false},
+  {"name": "openssl", "version": "3.2.4", "cve": "CVE-2024-6119", "cwe": "CWE-476", "fixed_version": "3.2.3", "affected": false},
+  {"name": "expat",   "version": "2.6.4", "cve": "CVE-2024-45492", "cwe": "CWE-190", "fixed_version": "2.6.3", "affected": false}
+]

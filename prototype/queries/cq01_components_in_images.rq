@@ -1,0 +1,4 @@
+SELECT ?image ?component ?version WHERE {
+  ?component ssc:includedIn ?image ;
+             ssc:hasVersion ?version .
+} ORDER BY ?image ?component

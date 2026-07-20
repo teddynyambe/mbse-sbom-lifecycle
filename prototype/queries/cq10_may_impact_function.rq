@@ -1,0 +1,3 @@
+SELECT ?component ?function WHERE {
+  ?component ssc:mayImpactFunction ?function .
+} ORDER BY ?function ?component

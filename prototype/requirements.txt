@@ -1,0 +1,16 @@
+# Core semantic-web stack (no graph database needed)
+rdflib>=7.0
+owlrl>=6.0
+pyshacl>=0.26
+
+# Intelligence adapters / IO
+requests>=2.31
+PyYAML>=6.0
+packaging>=23.0
+
+# Notebook orchestration
+jupyterlab>=4.0
+ipykernel>=6.0
+
+# Local LLM (Ollama Python client)
+ollama>=0.3

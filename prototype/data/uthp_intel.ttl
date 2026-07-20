@@ -1,0 +1,78 @@
+@prefix : <http://systemscyber.colostate.edu/ssc/data#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ssc: <http://systemscyber.colostate.edu/ssc#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:match_zlib_CVE-2022-37434 a ssc:ComponentVulnerabilityMatch ;
+    ssc:hasConfidence 1.0 ;
+    ssc:hasVEXStatus :vex_zlib_CVE-2022-37434 ;
+    ssc:matchMethod ssc:NormalizedNameVersion ;
+    ssc:matchesComponent :pkg_zlib_1_3_1 ;
+    ssc:matchesVulnerability :CVE-2022-37434 .
+
+:risk_glibc_CVE-2024-2961 a ssc:RiskAssessment ;
+    ssc:assesses :match_glibc_CVE-2024-2961 ;
+    ssc:hasRiskLevel ssc:RiskHigh ;
+    ssc:supportedBy :ev_CVE-2024-2961 .
+
+:risk_openssh_CVE-2024-6387 a ssc:RiskAssessment ;
+    ssc:assesses :match_openssh_CVE-2024-6387 ;
+    ssc:hasRiskLevel ssc:RiskHigh ;
+    ssc:supportedBy :ev_CVE-2024-6387 .
+
+:CVE-2022-37434 a ssc:Vulnerability ;
+    rdfs:label "CVE-2022-37434" ;
+    ssc:hasCvssScore 9.8 ;
+    ssc:hasSeverity ssc:Critical ;
+    ssc:hasWeakness :CWE-787 .
+
+:CVE-2024-2961 a ssc:Vulnerability ;
+    rdfs:label "CVE-2024-2961" ;
+    ssc:hasCvssScore 8.1 ;
+    ssc:hasSeverity ssc:High ;
+    ssc:hasWeakness :CWE-787 .
+
+:CVE-2024-6387 a ssc:Vulnerability ;
+    rdfs:label "CVE-2024-6387" ;
+    ssc:hasCvssScore 8.1 ;
+    ssc:hasSeverity ssc:High ;
+    ssc:hasWeakness :CWE-364 .
+
+:CWE-364 a ssc:Weakness ;
+    rdfs:label "Signal Handler Race Condition" .
+
+:ev_CVE-2024-2961 a ssc:Evidence ;
+    ssc:hasTimestamp "2026-07-17T02:24:51+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo :nvd_snapshot .
+
+:ev_CVE-2024-6387 a ssc:Evidence ;
+    ssc:hasTimestamp "2026-07-17T02:24:51+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo :nvd_snapshot .
+
+:match_glibc_CVE-2024-2961 a ssc:ComponentVulnerabilityMatch ;
+    ssc:hasConfidence 1.0 ;
+    ssc:hasVEXStatus :vex_glibc_CVE-2024-2961 ;
+    ssc:matchMethod ssc:NormalizedNameVersion ;
+    ssc:matchesComponent :pkg_glibc_2_39 ;
+    ssc:matchesVulnerability :CVE-2024-2961 .
+
+:match_openssh_CVE-2024-6387 a ssc:ComponentVulnerabilityMatch ;
+    ssc:hasConfidence 1.0 ;
+    ssc:hasVEXStatus :vex_openssh_CVE-2024-6387 ;
+    ssc:matchMethod ssc:NormalizedNameVersion ;
+    ssc:matchesComponent :pkg_openssh_9_6p1 ;
+    ssc:matchesVulnerability :CVE-2024-6387 .
+
+:vex_glibc_CVE-2024-2961 a ssc:VEXStatement ;
+    ssc:vexStatus ssc:Affected .
+
+:vex_openssh_CVE-2024-6387 a ssc:VEXStatement ;
+    ssc:vexStatus ssc:Affected .
+
+:vex_zlib_CVE-2022-37434 a ssc:VEXStatement ;
+    ssc:vexStatus ssc:NotAffected .
+
+:CWE-787 a ssc:Weakness ;
+    rdfs:label "Out-of-bounds Write" .
+

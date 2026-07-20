@@ -1,0 +1,32 @@
+[
+  {
+    "cve": "CVE-2024-6387",
+    "cwe": "CWE-364",
+    "cwe_label": "Signal Handler Race Condition",
+    "package": "openssh",
+    "fixed_version": "9.8p1",
+    "severity": "High",
+    "cvss": 8.1,
+    "description": "regreSSHion: signal-handler race in sshd enables unauthenticated remote code execution as root on glibc-based Linux (affects 8.5p1 up to <9.8p1)."
+  },
+  {
+    "cve": "CVE-2024-2961",
+    "cwe": "CWE-787",
+    "cwe_label": "Out-of-bounds Write",
+    "package": "glibc",
+    "fixed_version": "2.40",
+    "severity": "High",
+    "cvss": 8.1,
+    "description": "iconv ISO-2022-CN-EXT out-of-bounds write (glibc 2.39 and older); can crash or enable code execution."
+  },
+  {
+    "cve": "CVE-2022-37434",
+    "cwe": "CWE-787",
+    "cwe_label": "Out-of-bounds Write",
+    "package": "zlib",
+    "fixed_version": "1.2.13",
+    "severity": "Critical",
+    "cvss": 9.8,
+    "description": "Heap buffer over-read/overflow in inflate() via a large gzip header extra field (fixed in 1.2.13)."
+  }
+]

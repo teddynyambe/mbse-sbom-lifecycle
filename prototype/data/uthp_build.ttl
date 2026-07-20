@@ -1,0 +1,125 @@
+@prefix : <http://systemscyber.colostate.edu/ssc/data#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ssc: <http://systemscyber.colostate.edu/ssc#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:pkg_bash_5_2_21 a ssc:SoftwareComponent ;
+    rdfs:label "bash 5.2.21" ;
+    ssc:hasVersion "5.2.21"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/bash@5.2.21"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_busybox_1_36_1 a ssc:SoftwareComponent ;
+    rdfs:label "busybox 1.36.1" ;
+    ssc:hasVersion "1.36.1"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/busybox@1.36.1"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_curl_8_7_1 a ssc:SoftwareComponent ;
+    rdfs:label "curl 8.7.1" ;
+    ssc:hasVersion "8.7.1"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/curl@8.7.1"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_dropbear_2022_83 a ssc:SoftwareComponent ;
+    rdfs:label "dropbear 2022.83" ;
+    ssc:hasVersion "2022.83"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/dropbear@2022.83"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_expat_2_6_4 a ssc:SoftwareComponent ;
+    rdfs:label "expat 2.6.4" ;
+    ssc:hasVersion "2.6.4"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/expat@2.6.4"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_glibc_2_39 a ssc:SoftwareComponent ;
+    rdfs:label "glibc 2.39" ;
+    ssc:hasVersion "2.39"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/glibc@2.39"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_libgcrypt_1_10_3 a ssc:SoftwareComponent ;
+    rdfs:label "libgcrypt 1.10.3" ;
+    ssc:hasVersion "1.10.3"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/libgcrypt@1.10.3"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_libxml2_2_12_10 a ssc:SoftwareComponent ;
+    rdfs:label "libxml2 2.12.10" ;
+    ssc:hasVersion "2.12.10"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/libxml2@2.12.10"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_openssh_9_6p1 a ssc:SoftwareComponent ;
+    rdfs:label "openssh 9.6p1" ;
+    ssc:hasVersion "9.6p1"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/openssh@9.6p1"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_openssl_3_2_4 a ssc:SoftwareComponent ;
+    rdfs:label "openssl 3.2.4" ;
+    ssc:hasVersion "3.2.4"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/openssl@3.2.4"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_python3_pretty_j1939_0_0_0 a ssc:SoftwareComponent ;
+    rdfs:label "python3-pretty-j1939 0.0.0" ;
+    ssc:hasVersion "0.0.0"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/python3-pretty-j1939@0.0.0"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_python3_sae_j1939_2_0_12 a ssc:SoftwareComponent ;
+    rdfs:label "python3-sae-j1939 2.0.12" ;
+    ssc:hasVersion "2.0.12"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/python3-sae-j1939@2.0.12"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_systemd_255_17 a ssc:SoftwareComponent ;
+    rdfs:label "systemd 255.17" ;
+    ssc:hasVersion "255.17"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/systemd@255.17"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_truckdevil_0_0 a ssc:SoftwareComponent ;
+    rdfs:label "truckdevil 0.0" ;
+    ssc:hasVersion "0.0"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/truckdevil@0.0"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_util_linux_2_39_3 a ssc:SoftwareComponent ;
+    rdfs:label "util-linux 2.39.3" ;
+    ssc:hasVersion "2.39.3"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/util-linux@2.39.3"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:pkg_zlib_1_3_1 a ssc:SoftwareComponent ;
+    rdfs:label "zlib 1.3.1" ;
+    ssc:hasVersion "1.3.1"^^xsd:string ;
+    ssc:identifiedByPurl "pkg:generic/zlib@1.3.1"^^xsd:anyURI ;
+    ssc:includedIn :uthp_scarthgap_image ;
+    prov:wasGeneratedBy :build_scarthgap_508 .
+
+:uthp_scarthgap_image a ssc:FirmwareImage ;
+    ssc:producedBy :build_scarthgap_508 .
+
+:build_scarthgap_508 a ssc:Build ;
+    ssc:hasTimestamp "2026-07-17T02:24:51+00:00"^^xsd:dateTime ;
+    prov:wasAssociatedWith :bitbake .
+

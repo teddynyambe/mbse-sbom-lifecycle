@@ -1,0 +1,21 @@
+# This repository publishes ONLY the runnable prototype (which now contains its
+# own ontology under prototype/ontology-ssc/). The surrounding paper (LaTeX
+# sources, figures, SysML model, PDFs, drafts, literature-review artifacts,
+# AI/agent output) is kept private.
+#
+# Strategy: ignore everything at the repo root, then re-include just prototype/.
+# Files inside it are further filtered by prototype/.gitignore (venv, caches,
+# .DS_Store, the external uthp-yocto clone).
+
+# Ignore every top-level entry by default...
+/*
+
+# ...then re-include exactly what we share.
+!/.gitignore
+!/prototype/
+
+# Safety net (in case any of these appear inside the re-included dirs)
+**/.DS_Store
+**/__pycache__/
+**/.ipynb_checkpoints/
+*.py[cod]

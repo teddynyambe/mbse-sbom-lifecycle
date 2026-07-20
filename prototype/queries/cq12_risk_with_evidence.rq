@@ -1,0 +1,7 @@
+SELECT ?vulnerability ?risk ?evidence WHERE {
+  ?ra a ssc:RiskAssessment ;
+      ssc:assesses ?m ;
+      ssc:hasRiskLevel ?risk ;
+      ssc:supportedBy ?evidence .
+  ?m ssc:matchesVulnerability ?vulnerability .
+} ORDER BY ?vulnerability

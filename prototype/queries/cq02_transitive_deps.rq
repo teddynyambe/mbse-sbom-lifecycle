@@ -1,0 +1,3 @@
+SELECT ?component ?dependency WHERE {
+  ?component ssc:dependsOn ?dependency .
+} ORDER BY ?component ?dependency

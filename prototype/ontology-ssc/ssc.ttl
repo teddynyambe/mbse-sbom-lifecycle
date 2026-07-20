@@ -1,0 +1,243 @@
+@prefix ssc:     <http://systemscyber.colostate.edu/ssc#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix spdx:    <http://spdx.org/rdf/terms#> .
+
+#################################################################
+#  Ontology header
+#################################################################
+<http://systemscyber.colostate.edu/ssc> a owl:Ontology ;
+    rdfs:label   "SBOM Lifecycle Governance Ontology (SSC)" ;
+    rdfs:comment "Ontology for trustworthy SBOM lifecycle governance in safety-critical cyber-physical systems (UTHP/Yocto prototype). External vocabularies (SPDX, PROV-O) are referenced by alignment, not imported, to keep the file loadable offline." ;
+    owl:versionInfo "0.1" .
+
+#################################################################
+#  A. Composition classes
+#################################################################
+ssc:SoftwareComponent a owl:Class ;
+    rdfs:label "Software Component" ;
+    rdfs:comment "A software package or component (aligns with spdx:Package)." ;
+    rdfs:seeAlso spdx:Package .
+
+ssc:Build a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Build" ;
+    rdfs:comment "A build event that produces artifacts (e.g., a bitbake run)." .
+
+ssc:Artifact a owl:Class ;
+    rdfs:label "Artifact" ;
+    rdfs:comment "Any produced build artifact." .
+
+ssc:FirmwareImage a owl:Class ;
+    rdfs:subClassOf ssc:Artifact ;
+    rdfs:label "Firmware Image" ;
+    rdfs:comment "A deployable image built from software components." .
+
+ssc:Supplier a owl:Class ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:label "Supplier" ;
+    rdfs:comment "Origin/supplier of a software component." .
+
+ssc:License a owl:Class ;
+    rdfs:label "License" ;
+    rdfs:seeAlso spdx:License .
+
+#################################################################
+#  B. Deployment & CPS context (generalized target; safety impact is network-mediated)
+#################################################################
+ssc:TargetDevice a owl:Class ;
+    rdfs:label "Target Device" ;
+    rdfs:comment "A Linux/Yocto-capable compute node onto which a firmware image is deployed (e.g., infotainment, gateway, telematics, domain controller)." .
+
+ssc:InfotainmentUnit a owl:Class ; rdfs:subClassOf ssc:TargetDevice ; rdfs:label "Infotainment Unit" .
+ssc:Gateway         a owl:Class ; rdfs:subClassOf ssc:TargetDevice ; rdfs:label "Gateway" .
+ssc:TelematicsUnit  a owl:Class ; rdfs:subClassOf ssc:TargetDevice ; rdfs:label "Telematics Unit" .
+ssc:DomainController a owl:Class ; rdfs:subClassOf ssc:TargetDevice ; rdfs:label "Domain Controller" .
+
+ssc:ECU a owl:Class ;
+    rdfs:label "ECU" ;
+    rdfs:comment "An electronic control unit; typically a downstream, safety-relevant node reached over the in-vehicle network rather than the host of the Yocto image." .
+
+ssc:VehicleNetwork a owl:Class ;
+    rdfs:label "Vehicle Network" ;
+    rdfs:comment "In-vehicle network (e.g., CAN) linking devices and ECUs." .
+
+ssc:VehicleFunction a owl:Class ;
+    rdfs:label "Vehicle Function" ;
+    rdfs:comment "A vehicle function (e.g., braking, steering)." .
+
+ssc:SafetyFunction a owl:Class ;
+    rdfs:subClassOf ssc:VehicleFunction ;
+    rdfs:label "Safety Function" ;
+    rdfs:comment "A safety-critical vehicle function." .
+
+#################################################################
+#  C. Cybersecurity intelligence classes
+#################################################################
+ssc:Vulnerability a owl:Class ;
+    rdfs:label "Vulnerability" ;
+    rdfs:comment "A vulnerability (e.g., a CVE)." ;
+    owl:disjointWith ssc:Weakness .
+
+ssc:Weakness a owl:Class ;
+    rdfs:label "Weakness" ;
+    rdfs:comment "A weakness type (e.g., a CWE)." .
+
+ssc:VEXStatement a owl:Class ;
+    rdfs:label "VEX Statement" ;
+    rdfs:comment "Exploitability status of a component-vulnerability pair (per VEX)." .
+
+#################################################################
+#  D. Analysis & governance (reified relations)
+#################################################################
+ssc:ComponentVulnerabilityMatch a owl:Class ;
+    rdfs:label "Component-Vulnerability Match" ;
+    rdfs:comment "Reified link between a component and a vulnerability, carrying match method and confidence." .
+
+ssc:RiskAssessment a owl:Class ;
+    rdfs:label "Risk Assessment" ;
+    rdfs:comment "An assessment of the risk of a match, with impact and supporting evidence." .
+
+ssc:Remediation a owl:Class ; rdfs:label "Remediation" ;
+    rdfs:comment "A proposed fix (recipe bump, patch, or firmware wrapper)." .
+
+ssc:Attestation a owl:Class ; rdfs:label "Attestation" ;
+    rdfs:comment "Signed evidence over a fact or remediation." .
+
+ssc:Evidence a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Evidence" ;
+    rdfs:comment "A provenance record backing an assertion or assessment." .
+
+#################################################################
+#  E. Controlled-value classes and individuals
+#################################################################
+ssc:VEXStatus a owl:Class ; rdfs:label "VEX Status" .
+ssc:Affected           a ssc:VEXStatus .
+ssc:NotAffected        a ssc:VEXStatus .
+ssc:Fixed              a ssc:VEXStatus .
+ssc:UnderInvestigation a ssc:VEXStatus .
+
+ssc:MatchMethod a owl:Class ; rdfs:label "Match Method" .
+ssc:ExactIdentifier       a ssc:MatchMethod .
+ssc:NormalizedNameVersion a ssc:MatchMethod .
+ssc:AliasMatch            a ssc:MatchMethod .
+ssc:Probabilistic         a ssc:MatchMethod .
+ssc:Unresolved            a ssc:MatchMethod .
+
+ssc:Severity a owl:Class ; rdfs:label "Severity" .
+ssc:SeverityNone a ssc:Severity . ssc:Low a ssc:Severity . ssc:Medium a ssc:Severity .
+ssc:High a ssc:Severity . ssc:Critical a ssc:Severity .
+
+ssc:RiskLevel a owl:Class ; rdfs:label "Risk Level" .
+ssc:RiskLow a ssc:RiskLevel . ssc:RiskMedium a ssc:RiskLevel .
+ssc:RiskHigh a ssc:RiskLevel . ssc:RiskCritical a ssc:RiskLevel .
+
+#################################################################
+#  F. Object properties
+#################################################################
+ssc:dependsOn a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range ssc:SoftwareComponent ;
+    rdfs:label "depends on" ;
+    rdfs:comment "Direct or transitive dependency between components (CQ2)." .
+
+ssc:includedIn a owl:ObjectProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range ssc:FirmwareImage ;
+    rdfs:label "included in" .
+
+ssc:producedBy a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasGeneratedBy ;
+    rdfs:domain ssc:Artifact ; rdfs:range ssc:Build ;
+    rdfs:label "produced by" .
+
+ssc:deployedOn a owl:ObjectProperty ;
+    rdfs:domain ssc:FirmwareImage ; rdfs:range ssc:TargetDevice ;
+    rdfs:label "deployed on" .
+
+ssc:connectsTo a owl:ObjectProperty ;
+    rdfs:domain ssc:TargetDevice ; rdfs:range ssc:VehicleNetwork ;
+    rdfs:label "connects to" .
+
+ssc:reaches a owl:ObjectProperty ;
+    rdfs:domain ssc:VehicleNetwork ; rdfs:range ssc:ECU ;
+    rdfs:label "reaches" .
+
+ssc:supports a owl:ObjectProperty ;
+    rdfs:domain ssc:ECU ; rdfs:range ssc:VehicleFunction ;
+    rdfs:label "supports" .
+
+ssc:suppliedBy a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range ssc:Supplier ;
+    rdfs:label "supplied by" .
+
+ssc:matchesComponent a owl:ObjectProperty ;
+    rdfs:domain ssc:ComponentVulnerabilityMatch ; rdfs:range ssc:SoftwareComponent .
+ssc:matchesVulnerability a owl:ObjectProperty ;
+    rdfs:domain ssc:ComponentVulnerabilityMatch ; rdfs:range ssc:Vulnerability .
+
+ssc:hasWeakness a owl:ObjectProperty ;
+    rdfs:domain ssc:Vulnerability ; rdfs:range ssc:Weakness ; rdfs:label "has weakness" .
+
+ssc:hasVEXStatus a owl:ObjectProperty ;
+    rdfs:domain ssc:ComponentVulnerabilityMatch ; rdfs:range ssc:VEXStatement .
+
+ssc:vexStatus a owl:ObjectProperty ;
+    rdfs:domain ssc:VEXStatement ; rdfs:range ssc:VEXStatus .
+
+ssc:matchMethod a owl:ObjectProperty ;
+    rdfs:domain ssc:ComponentVulnerabilityMatch ; rdfs:range ssc:MatchMethod .
+
+ssc:hasSeverity a owl:ObjectProperty ;
+    rdfs:domain ssc:Vulnerability ; rdfs:range ssc:Severity .
+
+ssc:assesses a owl:ObjectProperty ;
+    rdfs:domain ssc:RiskAssessment ; rdfs:range ssc:ComponentVulnerabilityMatch .
+ssc:hasRiskLevel a owl:ObjectProperty ;
+    rdfs:domain ssc:RiskAssessment ; rdfs:range ssc:RiskLevel .
+ssc:supportedBy a owl:ObjectProperty ;
+    rdfs:domain ssc:RiskAssessment ; rdfs:range ssc:Evidence ; rdfs:label "supported by" .
+
+ssc:remediatedBy a owl:ObjectProperty ;
+    rdfs:domain ssc:Vulnerability ; rdfs:range ssc:Remediation .
+ssc:attestedBy a owl:ObjectProperty ;
+    rdfs:domain ssc:Remediation ; rdfs:range ssc:Attestation .
+
+#################################################################
+#  G. Inferred properties (property chains)  --  these drive CQ10
+#################################################################
+ssc:runsOn a owl:ObjectProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range ssc:TargetDevice ;
+    rdfs:label "runs on" ;
+    rdfs:comment "Inferred: a component included in an image deployed on a device runs on that device." ;
+    owl:propertyChainAxiom ( ssc:includedIn ssc:deployedOn ) .
+
+ssc:mayImpactFunction a owl:ObjectProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range ssc:VehicleFunction ;
+    rdfs:label "may impact function" ;
+    rdfs:comment "Inferred pivot path: a component on a device that connects to a network reaching an ECU which supports a function may indirectly impact that function (cf. Jeep/Uconnect, ELD worm)." ;
+    owl:propertyChainAxiom ( ssc:includedIn ssc:deployedOn ssc:connectsTo ssc:reaches ssc:supports ) .
+
+#################################################################
+#  H. Datatype properties
+#################################################################
+ssc:hasVersion a owl:DatatypeProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range xsd:string ; rdfs:label "has version" .
+ssc:identifiedByPurl a owl:DatatypeProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range xsd:anyURI ; rdfs:label "identified by purl" .
+ssc:identifiedByCpe a owl:DatatypeProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range xsd:string ; rdfs:label "identified by cpe" .
+ssc:hasHash a owl:DatatypeProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range xsd:string .
+ssc:hashAlgorithm a owl:DatatypeProperty ;
+    rdfs:domain ssc:SoftwareComponent ; rdfs:range xsd:string .
+ssc:hasCvssScore a owl:DatatypeProperty ;
+    rdfs:domain ssc:Vulnerability ; rdfs:range xsd:decimal .
+ssc:hasTimestamp a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime ; rdfs:label "has timestamp" .
+ssc:hasConfidence a owl:DatatypeProperty ;
+    rdfs:domain ssc:ComponentVulnerabilityMatch ; rdfs:range xsd:decimal ; rdfs:label "has confidence" .

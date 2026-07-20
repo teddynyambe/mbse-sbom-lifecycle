@@ -1,0 +1,7 @@
+SELECT ?component ?vulnerability ?confidence ?vex WHERE {
+  ?m a ssc:ComponentVulnerabilityMatch ;
+     ssc:matchesComponent ?component ;
+     ssc:matchesVulnerability ?vulnerability ;
+     ssc:hasConfidence ?confidence .
+  OPTIONAL { ?m ssc:hasVEXStatus/ssc:vexStatus ?vex . }
+} ORDER BY ?component

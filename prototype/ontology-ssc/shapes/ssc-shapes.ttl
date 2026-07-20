@@ -1,0 +1,46 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix ssc:  <http://systemscyber.colostate.edu/ssc#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# SHACL shapes = data-quality rules. They check that facts are well-formed
+# before the graph is trusted (the "semantic validity" guardrail).
+
+# A component must have a version AND at least one identifier (purl or cpe).
+ssc:SoftwareComponentShape a sh:NodeShape ;
+    sh:targetClass ssc:SoftwareComponent ;
+    sh:property [
+        sh:path ssc:hasVersion ; sh:minCount 1 ; sh:datatype xsd:string ;
+        sh:message "Every software component must have a version." ] ;
+    sh:or (
+        [ sh:path ssc:identifiedByPurl ; sh:minCount 1 ]
+        [ sh:path ssc:identifiedByCpe  ; sh:minCount 1 ]
+    ) ;
+    sh:message "Every software component must have a purl or cpe identifier." .
+
+# A build must have a timestamp.
+ssc:BuildShape a sh:NodeShape ;
+    sh:targetClass ssc:Build ;
+    sh:property [
+        sh:path ssc:hasTimestamp ; sh:minCount 1 ; sh:datatype xsd:dateTime ;
+        sh:message "Every build must have a timestamp." ] .
+
+# A component-vulnerability match must record both sides, its method, and a confidence in [0,1].
+ssc:MatchShape a sh:NodeShape ;
+    sh:targetClass ssc:ComponentVulnerabilityMatch ;
+    sh:property [ sh:path ssc:matchesComponent ; sh:minCount 1 ;
+                  sh:message "A match must reference a component." ] ;
+    sh:property [ sh:path ssc:matchesVulnerability ; sh:minCount 1 ;
+                  sh:message "A match must reference a vulnerability." ] ;
+    sh:property [ sh:path ssc:matchMethod ; sh:minCount 1 ;
+                  sh:message "A match must record how it was matched (matchMethod)." ] ;
+    sh:property [ sh:path ssc:hasConfidence ; sh:minCount 1 ; sh:datatype xsd:decimal ;
+                  sh:minInclusive 0.0 ; sh:maxInclusive 1.0 ;
+                  sh:message "A match must have a confidence between 0 and 1." ] .
+
+# A risk assessment must cite supporting evidence and a risk level.
+ssc:RiskAssessmentShape a sh:NodeShape ;
+    sh:targetClass ssc:RiskAssessment ;
+    sh:property [ sh:path ssc:supportedBy ; sh:minCount 1 ;
+                  sh:message "A risk assessment must cite supporting evidence." ] ;
+    sh:property [ sh:path ssc:hasRiskLevel ; sh:minCount 1 ;
+                  sh:message "A risk assessment must state a risk level." ] .

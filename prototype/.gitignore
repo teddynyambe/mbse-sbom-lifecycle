@@ -1,0 +1,15 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+# External UTHP checkout — third-party repo, not needed at runtime.
+# Get it from https://github.com/SystemsCyber/UTHP.git if you need it.
+uthp-yocto/

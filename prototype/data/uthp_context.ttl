@@ -1,0 +1,11 @@
+@prefix ssc: <http://systemscyber.colostate.edu/ssc#> .
+@prefix :    <http://systemscyber.colostate.edu/ssc/data#> .
+
+# Deployment context for the UTHP image (asserted; not from the build).
+# The UTHP is a J1939 diagnostic gateway that connects to the truck's CAN bus.
+:uthp_scarthgap_image ssc:deployedOn :uthp_gateway .
+
+:uthp_gateway a ssc:Gateway ; ssc:connectsTo :j1939_can .
+:j1939_can    a ssc:VehicleNetwork ; ssc:reaches :brake_ecu .
+:brake_ecu    a ssc:ECU ; ssc:supports :braking .
+:braking      a ssc:SafetyFunction .

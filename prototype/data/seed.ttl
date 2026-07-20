@@ -1,0 +1,62 @@
+@prefix ssc:  <http://systemscyber.colostate.edu/ssc#> .
+@prefix :     <http://systemscyber.colostate.edu/ssc/data#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Phase 2 seed — a small, hand-authored fixture to exercise the reasoner.
+# Realistic UTHP flavor: openssl+zlib in the UTHP gateway image, gateway on J1939/CAN
+# reaching a brake ECU. zlib 1.2.11 is affected by CVE-2022-37434 (CWE-787).
+
+# --- Build + image (from the build later; asserted here) ---
+:build_2026_07 a ssc:Build ; ssc:hasTimestamp "2026-07-15T09:00:00Z"^^xsd:dateTime .
+:uthp_image a ssc:FirmwareImage ;
+    ssc:producedBy :build_2026_07 ;
+    ssc:deployedOn :uthp_gateway .
+
+# --- Components + composition (this is what a build/SBOM provides) ---
+:app_ivi a ssc:SoftwareComponent ; ssc:hasVersion "1.0" ;
+    ssc:identifiedByPurl "pkg:generic/uthp-app@1.0"^^xsd:anyURI ;
+    ssc:includedIn :uthp_image ;
+    ssc:dependsOn :openssl_3_0_8 .
+
+:openssl_3_0_8 a ssc:SoftwareComponent ; ssc:hasVersion "3.0.8" ;
+    ssc:identifiedByPurl "pkg:generic/openssl@3.0.8"^^xsd:anyURI ;
+    ssc:includedIn :uthp_image ;
+    ssc:dependsOn :zlib_1_2_11 .
+
+:zlib_1_2_11 a ssc:SoftwareComponent ; ssc:hasVersion "1.2.11" ;
+    ssc:identifiedByPurl "pkg:generic/zlib@1.2.11"^^xsd:anyURI ;
+    ssc:includedIn :uthp_image ;
+    ssc:suppliedBy :zlib_project .
+:zlib_project a ssc:Supplier .
+
+# --- Deployment / CPS context (asserted; NOT from the build or an ECU) ---
+:uthp_gateway a ssc:Gateway ; ssc:connectsTo :j1939_can .
+:j1939_can a ssc:VehicleNetwork ; ssc:reaches :brake_ecu .
+:brake_ecu a ssc:ECU ; ssc:supports :braking .
+:braking a ssc:SafetyFunction .
+
+# --- Cybersecurity intelligence ---
+:CVE-2022-37434 a ssc:Vulnerability ;
+    ssc:hasSeverity ssc:Critical ; ssc:hasCvssScore 9.8 ;
+    ssc:hasWeakness :CWE-787 .
+:CWE-787 a ssc:Weakness ; rdfs:label "Out-of-bounds Write" .
+
+# --- Correlation (reified match) + VEX ---
+:match1 a ssc:ComponentVulnerabilityMatch ;
+    ssc:matchesComponent     :zlib_1_2_11 ;
+    ssc:matchesVulnerability :CVE-2022-37434 ;
+    ssc:matchMethod          ssc:ExactIdentifier ;
+    ssc:hasConfidence        1.0 ;
+    ssc:hasVEXStatus         :vex1 .
+:vex1 a ssc:VEXStatement ; ssc:vexStatus ssc:Affected .
+
+# --- Risk assessment + evidence ---
+:risk1 a ssc:RiskAssessment ;
+    ssc:assesses     :match1 ;
+    ssc:hasRiskLevel ssc:RiskHigh ;
+    ssc:supportedBy  :ev1 .
+:ev1 a ssc:Evidence ;
+    ssc:hasTimestamp "2026-07-15T10:00:00Z"^^xsd:dateTime ;
+    prov:wasAttributedTo :nvd_feed .
