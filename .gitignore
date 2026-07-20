@@ -12,6 +12,7 @@
 
 # ...then re-include exactly what we share.
 !/.gitignore
+!/README.md
 !/prototype/
 
 # Safety net (in case any of these appear inside the re-included dirs)
